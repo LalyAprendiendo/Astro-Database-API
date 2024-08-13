@@ -1,36 +1,37 @@
 //CONTROLLERS
 //Tiene los controladores de user y chart. Son los encargados de manejar las Request/Response, de interactuar con los modelos, y de realizar chequeos.
 import { Response, Request } from "express";
-import userModel from "../models/user-model";
+import UserModel from "../models/user-model";
 import { usersValidator } from "../schemas/users";
-import { writeFileSync } from "jsonfile";
+import { v4 as uuidv4 } from "uuid";
 
 class UserController {
   constructor() {}
 
-   getById(request: Request, response: Response) {
-  //   const db = userModel.getData();
-  //   const user = db.users.find((user) => user.id == request.params.id );
-  //   response.status(200).json({ message: user });
-   }
-  create(request: Request, response: Response) {
-    const db = userModel.getData();
+  static getById(request: Request, response: Response) {
+    // const db = UserModel.getData();
+    // const user = db.users.find((user) => user.id == request.body.id);
+    // response.status(200).json({ message: user });
+  }
+  static create(request: Request, response: Response) {
+    const db = UserModel.getData();
     const result = usersValidator(request.body);
-    console.log(result);
-    
-    if (!result.success) response.status(400).json({ error: result.error });
-    const user = request.body;
-    console.log(db);
-    //db.users.push(user);
-    //writeFileSync("./src/database/users.json", db.users);
 
-    response.status(200).json({ message: "Creado exitosamente" });
+    if (!result.success) return false;
+    const user: any = result.data;
+    user.id = uuidv4();
+
+    db.users.push(user);
+    UserModel.writeData(db);
+    return user.id;
   }
 
-
-  updateById(request: Request, response: Response) {}
+  static updateById(request: Request, response: Response) {}
+  static getByEmail(request: Request, response: Response) {
+    const db = UserModel.getData();
+    const user = db.users.find((user) => user.email == request.body.email);
+    return user;
+  }
 }
 
-const userController = new UserController();
-
-export default userController;
+export default UserController;

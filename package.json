@@ -4,7 +4,8 @@
   "description": "Astro Database API\r Desarrollar una API REST que permita interactuar con una base de datos de cartas astrológicas.",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd ./src/index.ts"
+    "dev": "tsnd ./src/index.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
   "dependencies": {
     "express": "^4.19.2",
     "jsonfile": "^6.1.0",
+    "uuid": "^10.0.0",
     "zod": "^3.23.8"
   }
 }

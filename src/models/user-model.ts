@@ -6,14 +6,13 @@ import { writeFileSync } from "jsonfile";
 class UserModel {
   constructor() {}
 
-  getData() {
+  static getData() {
     return db;
   }
-  writeData(data: {}) {
+  static writeData(data: {}) {
     writeFileSync("./src/database/users.json", data);
   }
 }
 
-const userModel = new UserModel();
 
-export default userModel;
+export default UserModel;

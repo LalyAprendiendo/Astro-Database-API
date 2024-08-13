@@ -6,15 +6,13 @@ import { writeFileSync } from "jsonfile";
 class ChartModel {
   constructor() {}
 
-  getData() {
+ static getData() {
     return db;
   }
-  writeData(data: {}) {
+ static writeData(data: {}) {
     writeFileSync("./src/database/natal-charts.json", data);
   }
 }
 
-const chartModel = new ChartModel();
 
-
-export default chartModel;
+export default ChartModel;
