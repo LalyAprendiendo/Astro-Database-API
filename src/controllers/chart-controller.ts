@@ -1,5 +1,3 @@
-///CONTROLLERS
-//Tiene los controladores de user y chart. Son los encargados de manejar las Request/Response, de interactuar con los modelos, y de realizar chequeos.
 import { Response, Request } from "express";
 import ChartModel from "../models/chart-model";
 import { chartsValidator } from "../schemas/charts";

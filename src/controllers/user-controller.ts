@@ -1,5 +1,3 @@
-//CONTROLLERS
-//Tiene los controladores de user y chart. Son los encargados de manejar las Request/Response, de interactuar con los modelos, y de realizar chequeos.
 import { Response, Request } from "express";
 import UserModel from "../models/user-model";
 import { usersValidator } from "../schemas/users";
@@ -9,9 +7,12 @@ class UserController {
   constructor() {}
 
   static getById(request: Request, response: Response) {
-    // const db = UserModel.getData();
-    // const user = db.users.find((user) => user.id == request.body.id);
-    // response.status(200).json({ message: user });
+    const db = UserModel.getData();
+    const user = db.users.find((user) => user.id == request.params.id);
+    if (!user) {
+      return response.status(404).json({ message: "Usuario no encontrado" });
+    }
+    response.status(200).json({ message: user });
   }
   static create(request: Request, response: Response) {
     const db = UserModel.getData();
